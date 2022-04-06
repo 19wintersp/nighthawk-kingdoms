@@ -1,0 +1,36 @@
+# Makefile for building on *nix
+#
+# Ensure that you have a C++ compiler installed, which conforms to (at minimum)
+# the C++17 standard. GCC C++ and CLang C++ have been tested and are confirmed
+# to work when given the correct configuration. Also ensure that you have the
+# necessary development libraries and headers, and that pkg-config has been set
+# up correctly.
+#
+# The libraries required are the base SDL2 development libraries, as well as the
+# SDL2 image and TTF extensions. On Ubuntu, these can be installed through the
+# APT packages libsdl2-dev, libsdl2-image-dev, and libsdl2-ttf-dev.
+
+NAME = kingdoms
+
+C++ ?= g++
+
+LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
+INCLUDE = $(shell pkg-config --cflags sdl2) -Iinclude
+CFLAGS = $(INCLUDE) -std=c++17 -O2 -Wall -Wextra
+
+OBJ = $(patsubst src/%.cpp, build/%.o, $(wildcard src/*.cpp))
+BIN = build/$(NAME)
+
+.PHONY: init build
+.DEFAULT: build
+
+build: init $(BIN)
+
+init:
+	mkdir -p build/
+
+$(BIN): $(OBJ)
+	$(C++) $(OBJ) -o $@ $(LIBS)
+
+build/%.o: src/%.cpp $(wildcard include/*.hpp)
+	$(C++) -c $< -o $@ $(CFLAGS)
