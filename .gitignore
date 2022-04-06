@@ -1,6 +1,14 @@
+build/
 out/
+
 .vs/
+.vscode/
+
+CMakeFiles/
+CMakeCache.txt
 CMakeSettings.json
+*.cmake
+Makefile
+
 *.pdb
-# *.exe
-build/kingdom.ilk
+*.exe
