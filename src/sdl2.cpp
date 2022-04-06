@@ -24,6 +24,12 @@ Text::Text(int _x, int _y, Align _align)
 	TTF_Init();
 
 	font_ptr ptr(TTF_OpenFont(str_brygada, 45));
+
+	if (ptr.get() == NULL) {
+		std::cerr << TTF_GetError() << std::endl;
+		std::exit(1);
+	}
+
 	TTF_SizeText(ptr.get(), "BUILD", &dim.w, &dim.h);
 }
 
