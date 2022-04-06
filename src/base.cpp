@@ -55,14 +55,14 @@ void Base::display_resources()
 		(Screen::get().SCREEN_WIDTH / 4 * 3)
 	};
 
-	sdl2::font_ptr ttf_font(TTF_OpenFont(sdl2::str_brygada.c_str(), 24));
+	sdl2::font_ptr ttf_font(TTF_OpenFont(str_brygada/* .c_str() */, 24));
 	int text_w, text_h;
 	TTF_SizeText(ttf_font.get(), str[3].c_str(), &text_w, &text_h);
 	int margin = (Screen::get().SCREEN_WIDTH - (Screen::get().SCREEN_WIDTH / 4 * 3 + text_w)) / 2;
 
 	for (int i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
 	{
-		Screen::get().text(str[i], sdl2::clr_yellow, sdl2::str_brygada, 24,
+		Screen::get().text(str[i], sdl2::clr_yellow, str_brygada, 24,
 			(Screen::get().SCREEN_WIDTH / 4 * i) + margin, 10, sdl2::Align::LEFT);
 	}
 }
@@ -169,7 +169,7 @@ void Base::display_shop()
 	case ShopState::HIDDEN: {
 		if (place == -1)
 		{
-			Screen::get().text("BUILD", sdl2::clr_white, sdl2::str_brygada, 45,
+			Screen::get().text("BUILD", sdl2::clr_white, str_brygada, 45,
 				text_build.dim.x, text_build.dim.y, text_build.align);
 
 			shop_y = Screen::get().SCREEN_HEIGHT;
@@ -192,7 +192,7 @@ void Base::display_shop()
 	case ShopState::VISIBLE: {
 		Screen::get().rect(0, shop_h, Screen::get().SCREEN_WIDTH, Screen::get().SCREEN_HEIGHT - shop_h, sdl2::clr_black, sdl2::clr_clear);
 
-		Screen::get().text("CLOSE", sdl2::clr_white, sdl2::str_brygada, 35,
+		Screen::get().text("CLOSE", sdl2::clr_white, str_brygada, 35,
 			Screen::get().SCREEN_WIDTH - 15, shop_h - 40, sdl2::Align::RIGHT);
 
 		for (auto const& building : shop_buildings)

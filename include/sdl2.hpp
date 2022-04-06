@@ -6,6 +6,8 @@
 #include <memory>
 #include <string>
 
+#define str_brygada "../assets/brygada.ttf"
+
 namespace sdl2
 {
 
@@ -50,7 +52,6 @@ struct Text
 	Align align;
 };
 
-std::string const str_brygada = "../assets/brygada.ttf";
 SDL_Color const clr_black{ 0, 0, 0, 255 };
 SDL_Color const clr_yellow{ 255, 239, 0, 255 };
 SDL_Color const clr_green{ 60, 220, 0, 150 };

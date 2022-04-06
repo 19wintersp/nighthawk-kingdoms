@@ -23,7 +23,7 @@ Text::Text(int _x, int _y, Align _align)
 {
 	TTF_Init();
 
-	font_ptr ptr(TTF_OpenFont(str_brygada.c_str(), 45));
+	font_ptr ptr(TTF_OpenFont(str_brygada, 45));
 	TTF_SizeText(ptr.get(), "BUILD", &dim.w, &dim.h);
 }
 
