@@ -45,6 +45,8 @@ public:
 private:
     Base();
 
+    bool can_place(sdl2::Dimension dim);
+
     std::vector<std::vector<Tile>> tiles;
     std::vector<Person> farmers;
     std::vector<Building> shop_buildings;

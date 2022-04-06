@@ -149,7 +149,12 @@ void Base::display_scene()
 			dim.y += 10;
 		}
 
-		Screen::get().rect(dim.x, dim.y, dim.w, dim.h, sdl2::clr_green, sdl2::clr_clear, sdl2::Align::CENTER);
+		Screen::get().rect(
+			dim.x, dim.y, dim.w, dim.h,
+			Base::can_place(dim) ? sdl2::clr_green : sdl2::clr_red,
+			sdl2::clr_clear,
+			sdl2::Align::CENTER
+		);
 		Screen::get().image(img, dim.x, dim.y, dim.w, dim.h, sdl2::Align::CENTER);
 
 		int const base = dim.y + (dim.h / 2);
@@ -242,18 +247,7 @@ void Base::handle_mouse_on_shop(int x, int y)
 				return;
 			}
 
-			bool can_place = true;
-			for (int i = (dim.x - dim.w / 2 - 5) / 20; i < (dim.x + dim.w / 2 - 5) / 20; ++i)
-			{
-				for (int j = (dim.y - dim.h / 2 - 60) / 20; j < (dim.y + dim.h / 2 - 60) / 20; ++j)
-				{
-					if (tiles[j][i].state == TileState::OCCUPIED)
-					{
-						can_place = false;
-						break;
-					}
-				}
-			}
+			bool can_place = Base::can_place(dim);
 
 			if (can_place)
 			{
@@ -292,4 +286,13 @@ void Base::handle_mouse_on_shop(int x, int y)
 			}
 		}
 	}
+}
+
+bool Base::can_place(sdl2::Dimension dim) {
+	for (int i = (dim.x - dim.w / 2 - 5) / 20; i < (dim.x + dim.w / 2 - 5) / 20; ++i)
+		for (int j = (dim.y - dim.h / 2 - 60) / 20; j < (dim.y + dim.h / 2 - 60) / 20; ++j)
+			if (tiles[j][i].state == TileState::OCCUPIED)
+				return false;
+
+	return true;
 }
